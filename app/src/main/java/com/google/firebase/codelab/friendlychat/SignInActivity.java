@@ -75,8 +75,7 @@ public class SignInActivity extends AppCompatActivity implements
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
-        // Initialize FirebaseAuth
+        Toast.makeText(this,"R.string: " + R.string.default_web_client_id, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -103,12 +102,16 @@ public class SignInActivity extends AppCompatActivity implements
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+
+            Toast.makeText(this, "To sting: " + result.isSuccess(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Status: " + result.getStatus(), Toast.LENGTH_LONG).show();
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed
+                Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "Google Sign In failed.");
             }
         }
